@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'HomeForm.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,19 +55,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  // Create a global key that uniquely identifies the Form widget
+  // and allows validation of the form.
+  //
+  // Note: This is a GlobalKey<FormState>,
+  // not a GlobalKey<MyCustomFormState>.
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -103,58 +97,11 @@ class _MyHomePageState extends State<MyHomePage> {
           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
           // action in the IDE, or press "p" in the console), to see the
           // wireframe for each widget.
+
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Dog Park:'),
-
-            TextField(
-              controller: _controller
-            ),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  style: TextStyle(
-                    fontSize: 25
-                  ),
-                  'Number of dogs: '
-                ),
-
-                SizedBox(
-                  width: 50,
-                  height: 50,
-
-                  child: TextField(
-                    controller: _controller,
-                    onSubmitted: (String dogs) async {
-                      int? numDogs = int.tryParse(dogs);
-
-                      String alertTitle = 'Thanks!';
-                      String alertText = 'Your $numDogs dogs have been entered into the database!';
-
-                      if(numDogs == null) { // Ensures the user typed a valid integer input (no decimals or alphabetical characters)
-                        alertTitle = 'Invalid Entry:';
-                        alertText = 'Please try again.';
-                      }
-
-                      await showDialog<void>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text(alertTitle),
-                              content: Text(alertText),
-                            );
-                          }
-                      );
-
-                      _controller.clear(); // Clears the text field for future entries - will probably move this to the earlier if statement
-                    },
-                  ),
-                )
-              ],
-            )
-          ],
+            HomeForm()
+          ]
         ),
       ),
     );
