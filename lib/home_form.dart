@@ -89,6 +89,9 @@ class MyCustomFormState extends State<HomeForm> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
+  String park = '';
+  int numDogs = 0;
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -107,7 +110,18 @@ class MyCustomFormState extends State<HomeForm> {
               SizedBox(
                 width: 200,
                 height: 50,
-                child: TextField(),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    else {
+                      park = value;
+                    }
+
+                    return null;
+                  },
+                ),
               ),
             ],
           ),
@@ -134,9 +148,12 @@ class MyCustomFormState extends State<HomeForm> {
                     if (numDogs == null){
                       return 'Please enter a valid value';
                     }
+                    else {
+                      this.numDogs = numDogs;
+                    }
 
                     return null;
-                  }
+                  },
                 ),
               ),
             ],
@@ -151,6 +168,8 @@ class MyCustomFormState extends State<HomeForm> {
                   // you'd often call a server or save the information in a database.
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processing Data')),
+
+                    
                   );
                 }
               },
