@@ -178,6 +178,9 @@ class MyCustomFormState extends State<HomeForm> {
                                                 height: 50,
                                                 width: 200,
                                                 child: TextFormField(
+                                                  decoration: InputDecoration(
+                                                    labelText: 'Dog ${index + 1}'
+                                                  ),
                                                   onSaved: (value) {
                                                     setState(() {
                                                       dogNames[index] = value ?? '';
