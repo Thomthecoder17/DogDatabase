@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-
 // ***TRY TO RE IMPLEMENT THIS***
-
 
 //   Row(
 //     mainAxisAlignment: MainAxisAlignment.center,
@@ -67,8 +65,6 @@ import 'package:flutter/material.dart';
 //     ],
 //   )
 
-
-
 // Create a Form widget.
 class HomeForm extends StatefulWidget {
   const HomeForm({super.key});
@@ -91,6 +87,7 @@ class MyCustomFormState extends State<HomeForm> {
 
   String park = '';
   int numDogs = 0;
+  List<String> dogNames = [];
 
   @override
   Widget build(BuildContext context) {
@@ -103,10 +100,7 @@ class MyCustomFormState extends State<HomeForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                  style: TextStyle(fontSize: 25),
-                  'Dog Park: '
-              ),
+              Text(style: TextStyle(fontSize: 25), 'Dog Park: '),
               SizedBox(
                 width: 200,
                 height: 50,
@@ -114,8 +108,7 @@ class MyCustomFormState extends State<HomeForm> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some text';
-                    }
-                    else {
+                    } else {
                       park = value;
                     }
 
@@ -128,10 +121,7 @@ class MyCustomFormState extends State<HomeForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                  style: TextStyle(fontSize: 25),
-                  'Number of dogs: '
-              ),
+              Text(style: TextStyle(fontSize: 25), 'Number of dogs: '),
 
               SizedBox(
                 width: 100,
@@ -145,10 +135,9 @@ class MyCustomFormState extends State<HomeForm> {
                     String dogs = value;
                     int? numDogs = int.tryParse(dogs);
 
-                    if (numDogs == null){
+                    if (numDogs == null) {
                       return 'Please enter a valid value';
-                    }
-                    else {
+                    } else {
                       this.numDogs = numDogs;
                     }
 
@@ -161,15 +150,63 @@ class MyCustomFormState extends State<HomeForm> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async{
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
+                  await showDialog<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Dog Names'),
+                        content:
+                            Form(
+                            key: _formKey,
+                            child: SizedBox(
+                              width: 400,
+                              height: 400,
+                              child: Column(
+                                children: <Widget>[
+                                  Expanded(
+                                      child: ListView.builder(
+                                        itemCount: numDogs,
+                                        itemBuilder: (context, index) {
+                                          return Row(
+                                            children: [
+                                              SizedBox(
+                                                height: 50,
+                                                width: 200,
+                                                child: TextFormField(
+                                                  onSaved: (value) {
+                                                    setState(() {
+                                                      dogNames[index] = value ?? '';
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                  ),
+
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      _formKey.currentState!.save();
+                                    },
+                                    child: Text('Submit'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                      );
+                    },
+                  );
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processing Data')),
-
-                    
                   );
                 }
               },
@@ -177,7 +214,7 @@ class MyCustomFormState extends State<HomeForm> {
             ),
           ),
         ],
-      )
+      ),
     );
   }
 }
