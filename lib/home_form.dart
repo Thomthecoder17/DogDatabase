@@ -150,7 +150,7 @@ class MyCustomFormState extends State<HomeForm> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: ElevatedButton(
-              onPressed: () async{
+              onPressed: () async {
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,
@@ -160,50 +160,49 @@ class MyCustomFormState extends State<HomeForm> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: const Text('Dog Names'),
-                        content:
-                            Form(
-                            key: _formKey,
-                            child: SizedBox(
-                              width: 400,
-                              height: 400,
-                              child: Column(
-                                children: <Widget>[
-                                  Expanded(
-                                      child: ListView.builder(
-                                        itemCount: numDogs,
-                                        itemBuilder: (context, index) {
-                                          return Row(
-                                            children: [
-                                              SizedBox(
-                                                height: 50,
-                                                width: 200,
-                                                child: TextFormField(
-                                                  decoration: InputDecoration(
-                                                    labelText: 'Dog ${index + 1}'
-                                                  ),
-                                                  onSaved: (value) {
-                                                    setState(() {
-                                                      dogNames[index] = value ?? '';
-                                                    });
-                                                  },
-                                                ),
+                        content: Form(
+                          key: _formKey,
+                          child: SizedBox(
+                            width: 400,
+                            height: 400,
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemCount: numDogs,
+                                    itemBuilder: (context, index) {
+                                      return Row(
+                                        children: [
+                                          SizedBox(
+                                            height: 50,
+                                            width: 200,
+                                            child: TextFormField(
+                                              decoration: InputDecoration(
+                                                labelText: 'Dog ${index + 1}',
                                               ),
-                                            ],
-                                          );
-                                        },
-                                      ),
-                                  ),
-
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      _formKey.currentState!.save();
+                                              onSaved: (value) {
+                                                setState(() {
+                                                  dogNames[index] = value ?? '';
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      );
                                     },
-                                    child: Text('Submit'),
                                   ),
-                                ],
-                              ),
+                                ),
+
+                                ElevatedButton(
+                                  onPressed: () {
+                                    _formKey.currentState!.save();
+                                  },
+                                  child: Text('Submit'),
+                                ),
+                              ],
                             ),
                           ),
+                        ),
                       );
                     },
                   );
