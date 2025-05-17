@@ -158,52 +158,7 @@ class MyCustomFormState extends State<HomeForm> {
                   await showDialog<void>(
                     context: context,
                     builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Dog Names'),
-                        content: Form(
-                          key: _formKey,
-                          child: SizedBox(
-                            width: 400,
-                            height: 400,
-                            child: Column(
-                              children: <Widget>[
-                                Expanded(
-                                  child: ListView.builder(
-                                    itemCount: numDogs,
-                                    itemBuilder: (context, index) {
-                                      return Row(
-                                        children: [
-                                          SizedBox(
-                                            height: 50,
-                                            width: 200,
-                                            child: TextFormField(
-                                              decoration: InputDecoration(
-                                                labelText: 'Dog ${index + 1}',
-                                              ),
-                                              onSaved: (value) {
-                                                setState(() {
-                                                  dogNames[index] = value ?? '';
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                ),
-
-                                ElevatedButton(
-                                  onPressed: () {
-                                    _formKey.currentState!.save();
-                                  },
-                                  child: Text('Submit'),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
+                      return
                     },
                   );
 
