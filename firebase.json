@@ -1,1 +1,25 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"dogdatabase-fe422","appId":"1:83267947231:android:e22a84b23ca8a53317f76a","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"dogdatabase-fe422","configurations":{"android":"1:83267947231:android:e22a84b23ca8a53317f76a","ios":"1:83267947231:ios:ba4ffdeeace76a4e17f76a","macos":"1:83267947231:ios:ba4ffdeeace76a4e17f76a","web":"1:83267947231:web:f32fefceea8a0aef17f76a","windows":"1:83267947231:web:200b2b45adffe06f17f76a"}}}}}}
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "dogdatabase-fe422",
+                    "appId": "1:83267947231:android:e22a84b23ca8a53317f76a",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "dogdatabase-fe422",
+                    "configurations": {
+                        "android": "1:83267947231:android:e22a84b23ca8a53317f76a",
+                        "ios": "1:83267947231:ios:ba4ffdeeace76a4e17f76a",
+                        "macos": "1:83267947231:ios:ba4ffdeeace76a4e17f76a",
+                        "web": "1:83267947231:web:f32fefceea8a0aef17f76a",
+                        "windows": "1:83267947231:web:200b2b45adffe06f17f76a"
+                    }
+                }
+            }
+        }
+    }
+}

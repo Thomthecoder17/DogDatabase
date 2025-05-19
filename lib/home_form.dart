@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dialog_text_form.dart';
 
 // ***TRY TO RE IMPLEMENT THIS***
 
@@ -158,7 +159,10 @@ class MyCustomFormState extends State<HomeForm> {
                   await showDialog<void>(
                     context: context,
                     builder: (BuildContext context) {
-                      return
+                      return DialogTextForm(
+                        formFields: numDogs, 
+                        promptTemplate: 'Dog '
+                      );
                     },
                   );
 

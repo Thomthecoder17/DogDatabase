@@ -11,18 +11,12 @@ class DialogTextForm extends StatefulWidget {
   });
 
   @override
-  DialogFormState createState() =>
-      DialogFormState(formFields: formFields, promptTemplate: promptTemplate);
+  DialogFormState createState() => DialogFormState();
 }
 
 class DialogFormState extends State<DialogTextForm> {
   final _formKey = GlobalKey<FormState>();
-
-  int formFields = 0;
-  String promptTemplate = '';
   List<String> dogNames = [];
-
-  DialogFormState({required this.formFields, required this.promptTemplate});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +35,7 @@ class DialogFormState extends State<DialogTextForm> {
               children: <Widget>[
                 Expanded(
                   child: ListView.builder(
-                    itemCount: formFields,
+                    itemCount: widget.formFields,
                     itemBuilder: (context, index) {
                       return Row(
                         children: [
@@ -51,11 +45,11 @@ class DialogFormState extends State<DialogTextForm> {
 
                             child: TextFormField(
                               decoration: InputDecoration(
-                                labelText: 'Dog ${index + 1}',
+                                labelText: '${widget.promptTemplate}${index + 1}',
                               ),
                               onSaved: (value) {
                                 setState(() {
-                                  dogNames[index] = value ?? '';
+                                  dogNames.add(value ?? '');
                                 });
                               },
                             ),
@@ -68,6 +62,7 @@ class DialogFormState extends State<DialogTextForm> {
 
                 ElevatedButton(
                   onPressed: () {
+                    dogNames.clear();
                     _formKey.currentState!.save();
                   },
                   child: Text('Submit'),
