@@ -1,73 +1,5 @@
 import 'package:flutter/material.dart';
-
-
-// ***TRY TO RE IMPLEMENT THIS***
-
-
-//   Row(
-//     mainAxisAlignment: MainAxisAlignment.center,
-//     children: [
-//       Text(
-//           style: TextStyle(
-//               fontSize: 25
-//           ),
-//           'Dog Park: '
-//       ),
-//       SizedBox(
-//         width: 200,
-//         height: 50,
-//         child: TextField(
-//             controller: _controller
-//         ),
-//       ),
-//     ],
-//   ),
-//
-//   Row(
-//     mainAxisAlignment: MainAxisAlignment.center,
-//     children: [
-//       Text(
-//         style: TextStyle(
-//           fontSize: 25
-//         ),
-//           'Number of dogs: '
-//       ),
-//
-//       SizedBox(
-//         width: 50,
-//         height: 50,
-//
-//         child: TextField(
-//           controller: _controller,
-//           onSubmitted: (String dogs) async {
-//             int? numDogs = int.tryParse(dogs);
-//
-//             String alertTitle = 'Thanks!';
-//             String alertText = 'Your $numDogs dogs have been entered into the database!';
-//
-//             if(numDogs == null) { // Ensures the user typed a valid integer input (no decimals or alphabetical characters)
-//               alertTitle = 'Invalid Entry:';
-//               alertText = 'Please try again.';
-//             }
-//
-//             await showDialog<void>(
-//                 context: context,
-//                 builder: (BuildContext context) {
-//                   return AlertDialog(
-//                     title: Text(alertTitle),
-//                     content: Text(alertText),
-//                   );
-//                 }
-//             );
-//
-//             _controller.clear(); // Clears the text field for future entries - will probably move this to the earlier if statement
-//           },
-//         ),
-//       )
-//     ],
-//   )
-
-
+import 'dialog_text_form.dart';
 
 // Create a Form widget.
 class HomeForm extends StatefulWidget {
@@ -91,6 +23,7 @@ class MyCustomFormState extends State<HomeForm> {
 
   String park = '';
   int numDogs = 0;
+  List<String> dogNames = [];
 
   @override
   Widget build(BuildContext context) {
@@ -103,10 +36,7 @@ class MyCustomFormState extends State<HomeForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                  style: TextStyle(fontSize: 25),
-                  'Dog Park: '
-              ),
+              Text(style: TextStyle(fontSize: 25), 'Dog Park: '),
               SizedBox(
                 width: 200,
                 height: 50,
@@ -114,8 +44,7 @@ class MyCustomFormState extends State<HomeForm> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter some text';
-                    }
-                    else {
+                    } else {
                       park = value;
                     }
 
@@ -128,10 +57,7 @@ class MyCustomFormState extends State<HomeForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                  style: TextStyle(fontSize: 25),
-                  'Number of dogs: '
-              ),
+              Text(style: TextStyle(fontSize: 25), 'Number of dogs: '),
 
               SizedBox(
                 width: 100,
@@ -145,10 +71,9 @@ class MyCustomFormState extends State<HomeForm> {
                     String dogs = value;
                     int? numDogs = int.tryParse(dogs);
 
-                    if (numDogs == null){
+                    if (numDogs == null) {
                       return 'Please enter a valid value';
-                    }
-                    else {
+                    } else {
                       this.numDogs = numDogs;
                     }
 
@@ -161,23 +86,31 @@ class MyCustomFormState extends State<HomeForm> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-
-                    
+                  await showDialog<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return DialogTextForm(
+                        formFields: numDogs, 
+                        promptTemplate: 'Dog '
+                      );
+                    },
                   );
+
+                  setState(() {
+                    _formKey.currentState!.reset(); //Clears the form
+                  });
                 }
               },
               child: const Text('Submit'),
             ),
           ),
         ],
-      )
+      ),
     );
   }
 }
