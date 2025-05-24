@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:83267947231:android:37b6d885a8a4e26c17f76a",
+        "android_client_info": {
+          "package_name": "com.example.DogDatabase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn8Y_4xfw1YiYr3x35FD9GfODkF0OyQxU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:83267947231:android:e22a84b23ca8a53317f76a",
         "android_client_info": {
           "package_name": "com.example.untitled2"
