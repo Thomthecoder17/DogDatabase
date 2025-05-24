@@ -42,17 +42,17 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyDPNs3MOOuRcStnMSAFxl_0e82d9SDa9ss',
-    appId: '1:83267947231:web:f32fefceea8a0aef17f76a',
+    appId: '1:83267947231:web:200b2b45adffe06f17f76a',
     messagingSenderId: '83267947231',
     projectId: 'dogdatabase-fe422',
     authDomain: 'dogdatabase-fe422.firebaseapp.com',
     storageBucket: 'dogdatabase-fe422.firebasestorage.app',
-    measurementId: 'G-V4XC0W61Q3',
+    measurementId: 'G-J6X9XH6C46',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCn8Y_4xfw1YiYr3x35FD9GfODkF0OyQxU',
-    appId: '1:83267947231:android:e22a84b23ca8a53317f76a',
+    appId: '1:83267947231:android:37b6d885a8a4e26c17f76a',
     messagingSenderId: '83267947231',
     projectId: 'dogdatabase-fe422',
     storageBucket: 'dogdatabase-fe422.firebasestorage.app',
@@ -60,30 +60,30 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDNRHKDDLDaqmc_xsxwLPSfwASunv-qex8',
-    appId: '1:83267947231:ios:ba4ffdeeace76a4e17f76a',
+    appId: '1:83267947231:ios:a50d1e985cf33ede17f76a',
     messagingSenderId: '83267947231',
     projectId: 'dogdatabase-fe422',
     storageBucket: 'dogdatabase-fe422.firebasestorage.app',
-    iosBundleId: 'com.example.untitled2',
+    iosBundleId: 'com.example.DogDatabase',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDNRHKDDLDaqmc_xsxwLPSfwASunv-qex8',
-    appId: '1:83267947231:ios:ba4ffdeeace76a4e17f76a',
+    appId: '1:83267947231:ios:a50d1e985cf33ede17f76a',
     messagingSenderId: '83267947231',
     projectId: 'dogdatabase-fe422',
     storageBucket: 'dogdatabase-fe422.firebasestorage.app',
-    iosBundleId: 'com.example.untitled2',
+    iosBundleId: 'com.example.DogDatabase',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyDPNs3MOOuRcStnMSAFxl_0e82d9SDa9ss',
-    appId: '1:83267947231:web:200b2b45adffe06f17f76a',
+    appId: '1:83267947231:web:8f151cb1d9bccc4217f76a',
     messagingSenderId: '83267947231',
     projectId: 'dogdatabase-fe422',
     authDomain: 'dogdatabase-fe422.firebaseapp.com',
     storageBucket: 'dogdatabase-fe422.firebasestorage.app',
-    measurementId: 'G-J6X9XH6C46',
+    measurementId: 'G-PF4DYF42Y6',
   );
 
 }

@@ -1,4 +1,4 @@
-package com.example.untitled2
+package com.example.DogDatabase
 
 import io.flutter.embedding.android.FlutterActivity
 
