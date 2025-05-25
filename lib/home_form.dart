@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dialog_text_form.dart';
+
+
 
 // Create a Form widget.
 class HomeForm extends StatefulWidget {
@@ -20,6 +23,8 @@ class MyCustomFormState extends State<HomeForm> {
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+
+  var parkCollection = FirebaseFirestore.instance.collection("dog_parks");
 
   String park = '';
   int numDogs = 0;
@@ -91,12 +96,15 @@ class MyCustomFormState extends State<HomeForm> {
                 if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
+                  QuerySnapshot? querySnapshot = await parkCollection.where('name', isEqualTo: park).get();
                   await showDialog<void>(
                     context: context,
                     builder: (BuildContext context) {
+
                       return DialogTextForm(
                         formFields: numDogs, 
-                        promptTemplate: 'Dog '
+                        promptTemplate: 'Dog ',
+                        parkDoc: querySnapshot.docs.first.reference,
                       );
                     },
                   );

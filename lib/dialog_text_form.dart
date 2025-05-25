@@ -1,13 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dog_database/dog.dart';
 import 'package:flutter/material.dart';
+
+
+//Idk what kind of half-modularity is going on here - I created this to be a generic dialog form, then made it specific to dogs
 
 class DialogTextForm extends StatefulWidget {
   final int formFields;
   final String promptTemplate;
+  final parkDoc;
 
   const DialogTextForm({
     super.key,
     required this.formFields,
     required this.promptTemplate,
+    required this.parkDoc
   });
 
   @override
@@ -66,6 +73,16 @@ class DialogFormState extends State<DialogTextForm> {
                     _formKey.currentState!.save();
 
                     Navigator.pop(context); //Removes DialogTextForm
+
+                    List<Map<String, dynamic>> dogMapList = []; //List to lump the maps into
+
+                    for(int i = 0; i < widget.formFields; i++) {
+                      Dog dog = Dog(dogNames[i]);
+                      Map<String, dynamic> dogMap = dog.toMap();
+                      dogMapList.add(dogMap);
+                    }
+
+                    widget.parkDoc.update({"dogs" : FieldValue.arrayUnion(dogMapList)});
                   },
                   child: Text('Submit'),
                 ),
