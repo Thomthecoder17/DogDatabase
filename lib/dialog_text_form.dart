@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+//Creates a DialogTextForm widget
 class DialogTextForm extends StatefulWidget {
   final int formFields;
   final String promptTemplate;
 
+  //Sets the instance varables for DialogTextForm
   const DialogTextForm({
     super.key,
     required this.formFields,
@@ -14,6 +16,8 @@ class DialogTextForm extends StatefulWidget {
   DialogFormState createState() => DialogFormState();
 }
 
+//Creates the state class for DialogTextForm. 
+//Contains all of the actual form fields and UI elements, as well as data processing.
 class DialogFormState extends State<DialogTextForm> {
   final _formKey = GlobalKey<FormState>();
   List<String> dogNames = [];
