@@ -68,6 +68,8 @@ class DialogFormState extends State<DialogTextForm> {
                   onPressed: () {
                     dogNames.clear();
                     _formKey.currentState!.save();
+
+                    Navigator.pop(context); //Removes DialogTextForm
                   },
                   child: Text('Submit'),
                 ),

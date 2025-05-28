@@ -1,71 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dialog_text_form.dart';
 
-// ***TRY TO RE IMPLEMENT THIS***
-
-//   Row(
-//     mainAxisAlignment: MainAxisAlignment.center,
-//     children: [
-//       Text(
-//           style: TextStyle(
-//               fontSize: 25
-//           ),
-//           'Dog Park: '
-//       ),
-//       SizedBox(
-//         width: 200,
-//         height: 50,
-//         child: TextField(
-//             controller: _controller
-//         ),
-//       ),
-//     ],
-//   ),
-//
-//   Row(
-//     mainAxisAlignment: MainAxisAlignment.center,
-//     children: [
-//       Text(
-//         style: TextStyle(
-//           fontSize: 25
-//         ),
-//           'Number of dogs: '
-//       ),
-//
-//       SizedBox(
-//         width: 50,
-//         height: 50,
-//
-//         child: TextField(
-//           controller: _controller,
-//           onSubmitted: (String dogs) async {
-//             int? numDogs = int.tryParse(dogs);
-//
-//             String alertTitle = 'Thanks!';
-//             String alertText = 'Your $numDogs dogs have been entered into the database!';
-//
-//             if(numDogs == null) { // Ensures the user typed a valid integer input (no decimals or alphabetical characters)
-//               alertTitle = 'Invalid Entry:';
-//               alertText = 'Please try again.';
-//             }
-//
-//             await showDialog<void>(
-//                 context: context,
-//                 builder: (BuildContext context) {
-//                   return AlertDialog(
-//                     title: Text(alertTitle),
-//                     content: Text(alertText),
-//                   );
-//                 }
-//             );
-//
-//             _controller.clear(); // Clears the text field for future entries - will probably move this to the earlier if statement
-//           },
-//         ),
-//       )
-//     ],
-//   )
-
 // Create a Form widget.
 class HomeForm extends StatefulWidget {
   const HomeForm({super.key});
@@ -166,9 +101,9 @@ class MyCustomFormState extends State<HomeForm> {
                     },
                   );
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-                  );
+                  setState(() {
+                    _formKey.currentState!.reset(); //Clears the form
+                  });
                 }
               },
               child: const Text('Submit'),
