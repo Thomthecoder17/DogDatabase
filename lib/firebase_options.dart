@@ -42,12 +42,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyDPNs3MOOuRcStnMSAFxl_0e82d9SDa9ss',
-    appId: '1:83267947231:web:200b2b45adffe06f17f76a',
+    appId: '1:83267947231:web:8f151cb1d9bccc4217f76a',
     messagingSenderId: '83267947231',
     projectId: 'dogdatabase-fe422',
     authDomain: 'dogdatabase-fe422.firebaseapp.com',
     storageBucket: 'dogdatabase-fe422.firebasestorage.app',
-    measurementId: 'G-J6X9XH6C46',
+    measurementId: 'G-PF4DYF42Y6',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -78,12 +78,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyDPNs3MOOuRcStnMSAFxl_0e82d9SDa9ss',
-    appId: '1:83267947231:web:8f151cb1d9bccc4217f76a',
+    appId: '1:83267947231:web:7007b19503eecf0417f76a',
     messagingSenderId: '83267947231',
     projectId: 'dogdatabase-fe422',
     authDomain: 'dogdatabase-fe422.firebaseapp.com',
     storageBucket: 'dogdatabase-fe422.firebasestorage.app',
-    measurementId: 'G-PF4DYF42Y6',
+    measurementId: 'G-54Z124GGV7',
   );
 
 }
