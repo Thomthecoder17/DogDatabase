@@ -92,22 +92,27 @@ class MyCustomFormState extends State<HomeForm> {
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: ElevatedButton(
               onPressed: () async {
+                final context = _formKey.currentContext;
+
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
                   QuerySnapshot? querySnapshot = await parkCollection.where('name', isEqualTo: park).get();
-                  await showDialog<void>(
-                    context: context,
-                    builder: (BuildContext context) {
 
-                      return DialogTextForm(
-                        formFields: numDogs, 
-                        promptTemplate: 'Dog ',
-                        parkDoc: querySnapshot.docs.first.reference,
-                      );
-                    },
-                  );
+                  if(context != null && context.mounted) {
+                    await showDialog<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+
+                        return DialogTextForm(
+                          formFields: numDogs,
+                          promptTemplate: 'Dog ',
+                          parkDoc: querySnapshot.docs.first.reference,
+                        );
+                      },
+                    );
+                  }
 
                   setState(() {
                     _formKey.currentState!.reset(); //Clears the form

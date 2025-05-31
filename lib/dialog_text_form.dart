@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class DialogTextForm extends StatefulWidget {
   final int formFields;
   final String promptTemplate;
-  final parkDoc;
+  final DocumentReference parkDoc;
 
   const DialogTextForm({
     super.key,
