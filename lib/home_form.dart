@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dialog_text_form.dart';
+
+
 
 // Create a Form widget.
 class HomeForm extends StatefulWidget {
@@ -20,6 +23,8 @@ class MyCustomFormState extends State<HomeForm> {
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+
+  var parkCollection = FirebaseFirestore.instance.collection("dog_parks");
 
   String park = '';
   int numDogs = 0;
@@ -87,19 +92,27 @@ class MyCustomFormState extends State<HomeForm> {
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: ElevatedButton(
               onPressed: () async {
+                final context = _formKey.currentContext;
+
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
-                  await showDialog<void>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return DialogTextForm(
-                        formFields: numDogs, 
-                        promptTemplate: 'Dog '
-                      );
-                    },
-                  );
+                  QuerySnapshot? querySnapshot = await parkCollection.where('name', isEqualTo: park).get();
+
+                  if(context != null && context.mounted) {
+                    await showDialog<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+
+                        return DialogTextForm(
+                          formFields: numDogs,
+                          promptTemplate: 'Dog ',
+                          parkDoc: querySnapshot.docs.first.reference,
+                        );
+                      },
+                    );
+                  }
 
                   setState(() {
                     _formKey.currentState!.reset(); //Clears the form
