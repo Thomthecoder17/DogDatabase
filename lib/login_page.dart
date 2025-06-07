@@ -1,0 +1,144 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'dialog_text_form.dart';
+
+// Create a Form widget.
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  final String title = "Add Dog";
+
+  @override
+  MyCustomFormState createState() {
+    return MyCustomFormState();
+  }
+}
+
+// Create a corresponding State class.
+// This class holds data related to the form.
+class MyCustomFormState extends State<LoginPage> {
+  // Create a global key that uniquely identifies the Form widget
+  // and allows validation of the form.
+  //
+  // Note: This is a GlobalKey<FormState>,
+  // not a GlobalKey<MyCustomFormState>.
+  final _formKey = GlobalKey<FormState>();
+
+  var parkCollection = FirebaseFirestore.instance.collection("dog_parks");
+
+  String park = '';
+  int numDogs = 0;
+  List<String> dogNames = [];
+
+  @override
+  Widget build(BuildContext context) {
+    // Build a Form widget using the _formKey created above.
+    return Scaffold(
+      appBar: AppBar(
+        // TRY THIS: Try changing the color here to a specific color (to
+        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+        // change color while the other colors stay the same.
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(style: TextStyle(fontSize: 25), 'Dog Park: '),
+                  SizedBox(
+                    width: 200,
+                    height: 50,
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        } else {
+                          park = value;
+                        }
+
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(style: TextStyle(fontSize: 25), 'Number of dogs: '),
+
+                  SizedBox(
+                    width: 100,
+                    height: 50,
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+
+                        String dogs = value;
+                        int? numDogs = int.tryParse(dogs);
+
+                        if (numDogs == null) {
+                          return 'Please enter a valid value';
+                        } else {
+                          this.numDogs = numDogs;
+                        }
+
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    final context = _formKey.currentContext;
+
+                    // Validate returns true if the form is valid, or false otherwise.
+                    if (_formKey.currentState!.validate()) {
+                      // If the form is valid, display a snackbar. In the real world,
+                      // you'd often call a server or save the information in a database.
+                      QuerySnapshot? querySnapshot =
+                          await parkCollection
+                              .where('name', isEqualTo: park)
+                              .get();
+
+                      if (context != null && context.mounted) {
+                        await showDialog<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return DialogTextForm(
+                              formFields: numDogs,
+                              promptTemplate: 'Dog ',
+                              parkDoc: querySnapshot.docs.first.reference,
+                            );
+                          },
+                        );
+                      }
+
+                      setState(() {
+                        _formKey.currentState!.reset(); //Clears the form
+                      });
+                    }
+                  },
+                  child: const Text('Submit'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
