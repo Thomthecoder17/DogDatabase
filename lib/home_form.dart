@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'dialog_text_form.dart';
-
-
+import 'login_form.dart';
 
 // Create a Form widget.
 class HomeForm extends StatefulWidget {
@@ -98,20 +96,44 @@ class MyCustomFormState extends State<HomeForm> {
                 if (_formKey.currentState!.validate()) {
                   // If the form is valid, display a snackbar. In the real world,
                   // you'd often call a server or save the information in a database.
-                  QuerySnapshot? querySnapshot = await parkCollection.where('name', isEqualTo: park).get();
-
-                  if(context != null && context.mounted) {
-                    await showDialog<void>(
-                      context: context,
-                      builder: (BuildContext context) {
-
-                        return DialogTextForm(
-                          formFields: numDogs,
-                          promptTemplate: 'Dog ',
-                          parkDoc: querySnapshot.docs.first.reference,
-                        );
-                      },
-                    );
+                  QuerySnapshot querySnapshot =
+                      await parkCollection.where('name', isEqualTo: park).get();
+                  if (querySnapshot.size > 0) {
+                    if (context != null && context.mounted) {
+                      // What happens if it is null or not mounted?
+                      await showDialog<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddDogForm(
+                            formFields: numDogs,
+                            parkDoc: querySnapshot.docs.first.reference,
+                          );
+                        },
+                      );
+                    }
+                  } else {
+                    if (context != null && context.mounted) {
+                      // What happens if it is null or not mounted?
+                      await showDialog<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Invalid Input'),
+                            content: const Text(
+                              'Please input a valid dog park name',
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('OK'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
                   }
 
                   setState(() {
