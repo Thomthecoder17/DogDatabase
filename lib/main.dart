@@ -1,5 +1,5 @@
+import 'package:dog_database/dog_manager.dart';
 import 'package:flutter/material.dart';
-import 'login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -106,12 +106,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: InkWell( //Does the tappy animation thing
                   onTap: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(builder: (context) => DogManager()),
                     );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("Add Dogs")],
+                    children: [Text("Add/Remove Dogs")],
                   ),
                 ),
               ),
@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onTap: () {},
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("Remove Dogs")],
+                    children: [Text("Look Up a Park")],
                   ),
                 )
               ),

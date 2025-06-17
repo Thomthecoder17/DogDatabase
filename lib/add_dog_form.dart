@@ -14,10 +14,10 @@ class AddDogForm extends StatefulWidget {
   });
 
   @override
-  DialogFormState createState() => DialogFormState();
+  AddDogFormState createState() => AddDogFormState();
 }
 
-class DialogFormState extends State<AddDogForm> {
+class AddDogFormState extends State<AddDogForm> {
   final _formKey = GlobalKey<FormState>();
   List<String> dogNames = [];
   DogStorage storage = DogStorage();
