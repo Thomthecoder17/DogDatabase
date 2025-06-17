@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'home_form.dart';
+import 'login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const MyApp());
 }
@@ -98,17 +96,42 @@ class _MyHomePageState extends State<MyHomePage> {
           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
           // action in the IDE, or press "p" in the console), to see the
           // wireframe for each widget.
-
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              width: MediaQuery.of(context).size.width - 40,
+              height: 100,
+              child: Card(
+                clipBehavior: Clip.antiAlias,
+                child: InkWell( //Does the tappy animation thing
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Text("Add Dogs")],
+                  ),
+                ),
               ),
-              SizedBox(
+            ),
 
+            SizedBox(
+              width: MediaQuery.of(context).size.width - 40,
+              height: 100,
+              child: Card(
+                clipBehavior: Clip.antiAlias,
+                child: InkWell( //Does the tappy animation thing
+                  onTap: () {},
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Text("Remove Dogs")],
+                  ),
+                )
               ),
-              HomeForm()
-            ]
+            ),
+          ],
         ),
       ),
     );
