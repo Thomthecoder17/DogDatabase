@@ -20,4 +20,7 @@ class Dog {
   get dogId {
     return id;
   }
+  get dogName {
+    return name;
+  }
 }

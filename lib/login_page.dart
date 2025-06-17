@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'dialog_text_form.dart';
+import 'add_dog_form.dart';
 
 // Create a Form widget.
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
-  final String title = "Add Dog";
+  final String title = "Add Dogs";
 
   @override
   MyCustomFormState createState() {
@@ -114,17 +114,42 @@ class MyCustomFormState extends State<LoginPage> {
                               .where('name', isEqualTo: park)
                               .get();
 
-                      if (context != null && context.mounted) {
-                        await showDialog<void>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return DialogTextForm(
-                              formFields: numDogs,
-                              promptTemplate: 'Dog ',
-                              parkDoc: querySnapshot.docs.first.reference,
-                            );
-                          },
-                        );
+                      if (querySnapshot.size > 0) {
+                        if (context != null && context.mounted) {
+                          // What happens if it is null or not mounted?
+                          await showDialog<void>(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AddDogForm(
+                                formFields: numDogs,
+                                parkDoc: querySnapshot.docs.first.reference,
+                              );
+                            },
+                          );
+                        }
+                      } else {
+                        if (context != null && context.mounted) {
+                          // What happens if it is null or not mounted?
+                          await showDialog<void>(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Invalid Input'),
+                                content: const Text(
+                                  'Please input a valid dog park name',
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text('OK'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                       }
 
                       setState(() {
