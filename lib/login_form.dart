@@ -1,19 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dog_database/dog.dart';
 import 'package:flutter/material.dart';
+import 'storage_handler.dart';
 
-
-//Idk what kind of half-modularity is going on here - I created this to be a generic dialog form, then made it specific to dogs
-
-class DialogTextForm extends StatefulWidget {
+class AddDogForm extends StatefulWidget {
   final int formFields;
-  final String promptTemplate;
   final DocumentReference parkDoc;
 
-  const DialogTextForm({
+  const AddDogForm({
     super.key,
     required this.formFields,
-    required this.promptTemplate,
     required this.parkDoc
   });
 
@@ -21,9 +17,10 @@ class DialogTextForm extends StatefulWidget {
   DialogFormState createState() => DialogFormState();
 }
 
-class DialogFormState extends State<DialogTextForm> {
+class DialogFormState extends State<AddDogForm> {
   final _formKey = GlobalKey<FormState>();
   List<String> dogNames = [];
+  DogStorage storage = DogStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +49,7 @@ class DialogFormState extends State<DialogTextForm> {
 
                             child: TextFormField(
                               decoration: InputDecoration(
-                                labelText: '${widget.promptTemplate}${index + 1}',
+                                labelText: 'Dog ${index + 1}',
                               ),
                               onSaved: (value) {
                                 setState(() {
@@ -83,6 +80,7 @@ class DialogFormState extends State<DialogTextForm> {
                     }
 
                     widget.parkDoc.update({"dogs" : FieldValue.arrayUnion(dogMapList)});
+                    storage.writeDogLst(dogMapList);
                   },
                   child: Text('Submit'),
                 ),
